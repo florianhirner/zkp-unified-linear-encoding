@@ -1,0 +1,9 @@
+# gitignore
+
+sw/c++/trivium/trivium-hw/
+sw/c++/trivium/trivium-sw/a.out
+
+sw/py/__pycache__/
+
+sw/py/mem/*/*
+sw/py/rom/*/*

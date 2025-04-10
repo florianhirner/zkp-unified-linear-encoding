@@ -38,23 +38,35 @@ class PolynomialCommitment:
     self.lg_k = lg_k
     self.lg_d = lg_d
     self.lg_n = lg_k + lg_d
-    self.LC = LinearCode(2**lg_d)
+    self.LC = None # LinearCode(2**lg_d)
+
+    print(f"[PC][INIT] {self.lg_k=}")
+    print(f"[PC][INIT] {self.lg_d=}")
+    print(f"[PC][INIT] {self.lg_n=}")
+    print(f"")
+
+    return
 
   #----------------------------------------------------------------------------
   # routines
   #----------------------------------------------------------------------------
   
+  def init_expander_graph(self):
+    print(f"[PC][INIT-EG] create expander graph ...")
+    self.LC = LinearCode(2**self.lg_d)
+    self.LC.write_to_memory()
+
   def commit(self, msg):
-    print(f"[INFO] Committing to given msg...")
+    print(f"[PC][COMMIT] Commit to given msg ...")
     for _row in msg:
       self.encode(_row)
 
   def prove(self):
-    print(f"[INFO] Proving with {self.name}...")
+    print(f"[PC][PROVE ] Generate a proof ...")
     # Add proving logic here
 
   def verify(self):
-    print(f"[INFO] Verifying with {self.name}...")
+    print(f"[PC][VERIFY] Verify proof ...")
     # Add verification logic here
 
   #----------------------------------------------------------------------------

@@ -35,10 +35,12 @@ def main():
   print(f'[MAIN] > {deg1_l=}')
   print(f'[MAIN] > {deg2_r=}')
   print(f'[MAIN] > {deg2_l=}')
+  print(f'')
 
   msg = [[random.randint(0, 10) for _coef in range(2**lg_d)] for _row in range(2**lg_k)]
 
   PC = PolynomialCommitment(lg_k, lg_d)
+  PC.init_expander_graph()
   PC.commit(msg=msg)
   PC.prove()
   PC.verify()

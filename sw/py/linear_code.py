@@ -130,7 +130,7 @@ class LinearCode:
     print(f"[LC][W2M] write all expander graphs to memory")
 
     for _i, _ExpanderGraph in enumerate(self.ExpanderGraphs):
-      print(f'[LE][W2M] > {_i=} {_ExpanderGraph.num_left_nodes=}, {_ExpanderGraph.num_right_nodes=}')
+      print(f'[LE][W2M] > {_i=} {_ExpanderGraph.lnodes=}, {_ExpanderGraph.rnodes=}')
       _ExpanderGraph.write_to_memory()
   
     ROM_LC_LNODES = []
@@ -140,11 +140,11 @@ class LinearCode:
     ROM_LC_RDEGREES = []
 
     for _i, _ExpanderGraph in enumerate(self.ExpanderGraphs):
-      print(f'[LE][INIT] > {_i=} \n\t-lnodes/ldegree: {_ExpanderGraph.num_left_nodes}/{_ExpanderGraph.degree_left}\n\t-rnodes/rdegree: {_ExpanderGraph.num_right_nodes}/{_ExpanderGraph.degree_right}')
-      ROM_LC_LNODES.append(_ExpanderGraph.num_left_nodes)
-      ROM_LC_RNODES.append(_ExpanderGraph.num_right_nodes)
-      ROM_LC_LDEGREES.append(_ExpanderGraph.degree_left)
-      ROM_LC_RDEGREES.append(_ExpanderGraph.degree_right)
+      print(f'[LE][INIT] > {_i=} \n\t-lnodes/ldegree: {_ExpanderGraph.lnodes}/{_ExpanderGraph.ldegree}\n\t-rnodes/rdegree: {_ExpanderGraph.rnodes}/{_ExpanderGraph.rdegree}')
+      ROM_LC_LNODES.append(_ExpanderGraph.lnodes)
+      ROM_LC_RNODES.append(_ExpanderGraph.rnodes)
+      ROM_LC_LDEGREES.append(_ExpanderGraph.ldegree)
+      ROM_LC_RDEGREES.append(_ExpanderGraph.rdegree)
     #   #
     #   # print(f'>> #El: {len(_ExpanderGraph.El)}')
     #   for _lnode in _ExpanderGraph.El:

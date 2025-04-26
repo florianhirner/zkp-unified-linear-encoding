@@ -21,10 +21,10 @@ def main():
 
   lg_k   = int(args[0])
   lg_d   = int(args[1])
-  deg1_r = int(args[2])
-  deg1_l = int(args[3])
-  deg2_r = int(args[4])
-  deg2_l = int(args[5])
+  deg1_r = 10 # int(args[2])
+  deg1_l = 20 # int(args[3])
+  deg2_r = 42 # int(args[4])
+  deg2_l = 26 # int(args[5])
 
   lg_N = lg_k + lg_d
 

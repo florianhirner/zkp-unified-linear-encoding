@@ -7,3 +7,4 @@ sw/py/__pycache__/
 
 sw/py/mem/*/*
 sw/py/rom/*/*
+.DS_Store

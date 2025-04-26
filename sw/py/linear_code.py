@@ -18,6 +18,7 @@ class LinearCode:
 
   # Expanders
   ExpanderGraphs = []
+  ExpanderGraphsOffset = []
 
   #----------------------------------------------------------------------------
   # Initializing of class
@@ -74,9 +75,11 @@ class LinearCode:
 
       round_info.append([n_in, n_in, n_new, rd_addr, deg_r])
 
+      round_addr.append([rd_addr, wr_addr])
+      self.ExpanderGraphsOffset.append([rd_addr, wr_addr])
+
       rd_addr += n_in
       wr_addr += R
-      round_addr.append([rd_addr, wr_addr])
 
       n_in = n_new    
 
@@ -106,9 +109,11 @@ class LinearCode:
 
       round_info.append([n_in, n_new, r, rd_addr, deg_r])
 
+      round_addr.append([rd_addr, wr_addr])
+      self.ExpanderGraphsOffset.append([rd_addr, wr_addr])
+      
       rd_addr -= n_in
       wr_addr += R
-      round_addr.append([rd_addr, wr_addr])
 
       round_ctr += 1
       print(f'')

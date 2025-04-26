@@ -58,7 +58,7 @@ class PolynomialCommitment:
   def init_expander_graph(self):
     print(f"[PC][INIT-EG] create expander graph ...")
     self.LC = LinearCode(2**self.lg_d)
-    self.LC.write_to_memory()
+    # self.LC.write_to_memory() # TODO fix
 
   def commit(self, msg):
     print(f"[PC][COMMIT] Commit to given msg ...")
@@ -101,8 +101,9 @@ class PolynomialCommitment:
     # compare 
     error = 0
     for _i, _j in zip(enc, enc_inv):
-      if _i != _j:
+      if (_i.real != _j.real or _i.img != _j.img):
         error += 1
+        print(f'{str(_i)} != {str(_j)}')
     
     print(f'{error=}')
     return enc, enc_inv
@@ -133,7 +134,7 @@ class PolynomialCommitment:
   
   def encode_l2r(self, row):
     # print(f'[PC][ENC][L2R] {len(row)} -> {int(len(row) * 1.72)}')
-    enc = row + [0] * int(len(row) * 1.72)
+    enc = row + [ExtensionField(0, 0)] * int(len(row) * 1.72)
     for _expander, _expander_offset in zip(self.LC.ExpanderGraphs, self.LC.ExpanderGraphsOffset):
       # print(f'[PC][ENC][L2R][LC] {_expander.lnodes=} - {_expander.rnodes=} :  {_expander_offset=}')
       rd_offset, wr_offset = _expander_offset
@@ -149,8 +150,10 @@ class PolynomialCommitment:
           _rnode_val = enc[_wr_index]
 
           # add left node to right node
-          _acc = (_lnode_val * _edge.weight) + _rnode_val
-          _acc = _acc % Prime.PRIME
+          # _acc = (_lnode_val * _edge.weight) + _rnode_val
+          _acc = (_lnode_val * _edge.weight)
+          _acc = _acc + _rnode_val
+          # _acc = _acc % Prime.PRIME
           enc[_wr_index] = _acc
 
           # print(f'[PC][ENC][L2R][LC][EG] > {_rnode=} * {_edge.weight=} * {_lnode=}')
@@ -160,13 +163,13 @@ class PolynomialCommitment:
   
   def encode_r2l(self, row):
     # print(f'[PC][ENC][R2L] {len(row)} -> {int(len(row) * 1.72)}')
-    enc = row + [0] * int(len(row) * 1.72)
+    enc = row + [ExtensionField(0, 0)] * int(len(row) * 1.72)
     for _expander, _expander_offset in zip(self.LC.ExpanderGraphs, self.LC.ExpanderGraphsOffset):
       # print(f'[PC][ENC][R2L][LC] {_expander.lnodes=} - {_expander.rnodes=} :  {_expander_offset=}')
       rd_offset, wr_offset = _expander_offset
       for _ri, _rnode in enumerate(_expander.Er):
         # print(f'[PC][ENC][R2L][LC][EG] {len(_rnode)=}:')
-        _acc_val = 0
+        _acc_val = ExtensionField(0, 0)
         for _ei, _edge in enumerate(_rnode):
           # print(f'[PC][ENC][R2L][LC][EG] > {_edge.lnode=} - {_edge.rnode=} - {_edge.weight=}')
           # print(f'[PC][ENC][R2L][LC][EG] = {_acc_val=}')
@@ -183,7 +186,7 @@ class PolynomialCommitment:
           # enc[_wr_index] = _res_val
 
           _acc_val += (_lnode_val * _edge.weight)
-          _acc_val = _acc_val % Prime.PRIME
+          # _acc_val = _acc_val % Prime.PRIME
 
           # print(f'[PC][ENC][R2L][LC][EG] > {_lnode_val=} * {_edge.weight=} * {_res_val=}')
           # print(f'[PC][ENC][R2L][LC][EG] > {_lnode_val=} * {_edge.weight=} * {_acc_val=}')

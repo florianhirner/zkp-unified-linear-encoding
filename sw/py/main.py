@@ -37,7 +37,9 @@ def main():
   print(f'[MAIN] > {deg2_l=}')
   print(f'')
 
-  msg = [[random.randint(0, 10) for _coef in range(2**lg_d)] for _row in range(2**lg_k)]
+  # msg = [[random.randint(0, 10) for _coef in range(2**lg_d)] for _row in range(2**lg_k)]
+  msg = [[ExtensionField() for _coef in range(2**lg_d)] for _row in range(2**lg_k)]
+  # msg = [[ExtensionField(0, 10) for _coef in range(2**lg_d)] for _row in range(2**lg_k)]
 
   PC = PolynomialCommitment(lg_k, lg_d)
   PC.init_expander_graph()

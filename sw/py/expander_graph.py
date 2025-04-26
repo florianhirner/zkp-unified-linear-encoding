@@ -6,6 +6,7 @@
 # - Florian Krieger
 ###################################################################################################
 
+from params import ExtensionField
 from prng_edge_address import prng_edge_address_singleton
 from prng_edge_weight import prng_edge_weight_singleton
 
@@ -76,7 +77,8 @@ class ExpanderGraph:
       _El = []
       for _edge in range(self.ldegree):
         _edge_addr = prng_edge_address_singleton.random() % self.rnodes
-        _edge_weight = prng_edge_weight_singleton.random()
+        # _edge_weight = prng_edge_weight_singleton.random()
+        _edge_weight = ExtensionField(prng_edge_weight_singleton.random(), prng_edge_weight_singleton.random())
         _edge_data = GraphEdge(_lnode, _edge_addr, _edge_weight)
         _El.append(_edge_data)
         self.Er[_edge_addr].append(_edge_data)
